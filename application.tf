@@ -6,14 +6,11 @@ resource "aws_lb" "main" {
   security_groups    = [data.aws_security_group.sglb.id]
   subnets            = data.aws_subnets.public.ids
 
-  tags = {
-    Terraform = var.terraform_tag
-    Project   = var.project_tag
-  }
+  tags = local.common_tags
 }
 
 resource "aws_lb_target_group" "main" {
-  name     = "${var.lb_name}-tg" # Create a unique TG name
+  name     = "${var.lb_name}-tg" 
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.existing.id
@@ -22,10 +19,7 @@ resource "aws_lb_target_group" "main" {
     path = "/"
   }
 
-  tags = {
-    Terraform = var.terraform_tag
-    Project   = var.project_tag
-  }
+  tags = local.common_tags
 }
 
 resource "aws_lb_listener" "http" {
@@ -64,10 +58,7 @@ resource "aws_launch_template" "main" {
 
   tag_specifications {
     resource_type = "instance"
-    tags = {
-      Terraform = var.terraform_tag
-      Project   = var.project_tag
-    }
+    tags = local.common_tags
   }
 }
 
@@ -83,7 +74,6 @@ resource "aws_autoscaling_group" "main" {
     version = "$Latest"
   }
 
-  # This is critical to prevent conflicts with the aws_autoscaling_attachment resource
   lifecycle {
     ignore_changes = [target_group_arns]
   }

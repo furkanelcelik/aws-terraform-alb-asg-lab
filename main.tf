@@ -50,3 +50,10 @@ data "aws_security_group" "sglb" {
   name   = var.sg_sglb_name
   vpc_id = data.aws_vpc.existing.id
 }
+
+locals {
+  common_tags = {
+    Terraform = var.terraform_tag
+    Project   = var.project_tag
+  }
+}

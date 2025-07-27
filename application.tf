@@ -10,7 +10,7 @@ resource "aws_lb" "main" {
 }
 
 resource "aws_lb_target_group" "main" {
-  name     = "${var.lb_name}-tg" 
+  name     = "${var.lb_name}-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.existing.id
@@ -58,7 +58,7 @@ resource "aws_launch_template" "main" {
 
   tag_specifications {
     resource_type = "instance"
-    tags = local.common_tags
+    tags          = local.common_tags
   }
 }
 

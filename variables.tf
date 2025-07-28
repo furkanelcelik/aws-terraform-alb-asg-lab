@@ -137,3 +137,18 @@ variable "asg_min_size" {
   description = "The minimum size for the Auto Scaling Group."
   type        = number
 }
+
+variable "lb_internal" {
+  description = "Whether the Load Balancer is internal."
+  type        = bool
+}
+
+variable "lt_tag_resource_type" {
+  description = "The resource type for the launch template tag specification."
+  type        = string
+}
+
+variable "asg_lt_version" {
+  description = "The version of the launch template for the ASG to use."
+  type        = string
+}

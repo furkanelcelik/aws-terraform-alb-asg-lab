@@ -1,7 +1,7 @@
 # --- Load Balancer, Target Group, and Listener ---
 resource "aws_lb" "main" {
   name               = var.lb_name
-  internal           = false
+  internal           = var.lb_internal
   load_balancer_type = var.lb_type
   security_groups    = [data.aws_security_group.sglb.id]
   subnets            = data.aws_subnets.public.ids
@@ -48,7 +48,7 @@ resource "aws_launch_template" "main" {
   }
   user_data = base64encode(file("${path.module}/user_data.sh"))
   tag_specifications {
-    resource_type = "instance"
+    resource_type = var.lt_tag_resource_type
     tags          = local.common_tags
   }
 }
@@ -61,7 +61,7 @@ resource "aws_autoscaling_group" "main" {
   vpc_zone_identifier = data.aws_subnets.private.ids
   launch_template {
     id      = aws_launch_template.main.id
-    version = "$Latest"
+    version = var.asg_lt_version
   }
   lifecycle {
     ignore_changes = [target_group_arns]

@@ -72,3 +72,68 @@ variable "common_tags" {
   description = "A map of common tags to apply to resources."
   type        = map(string)
 }
+
+variable "lb_type" {
+  description = "The type of Load Balancer."
+  type        = string
+}
+
+variable "tg_port" {
+  description = "The port for the target group."
+  type        = number
+}
+
+variable "tg_protocol" {
+  description = "The protocol for the target group."
+  type        = string
+}
+
+variable "tg_health_check_path" {
+  description = "The health check path for the target group."
+  type        = string
+}
+
+variable "listener_port" {
+  description = "The port for the LB listener."
+  type        = string
+}
+
+variable "listener_protocol" {
+  description = "The protocol for the LB listener."
+  type        = string
+}
+
+variable "listener_default_action_type" {
+  description = "The default action type for the listener."
+  type        = string
+}
+
+variable "lt_delete_on_termination" {
+  description = "Whether to delete the network interface on instance termination."
+  type        = bool
+}
+
+variable "lt_metadata_http_endpoint" {
+  description = "State of the metadata service endpoint."
+  type        = string
+}
+
+variable "lt_metadata_http_tokens" {
+  description = "State of the metadata service tokens."
+  type        = string
+}
+
+variable "asg_desired_capacity" {
+  description = "The desired capacity for the Auto Scaling Group."
+  type        = number
+}
+
+variable "asg_max_size" {
+  description = "The maximum size for the Auto Scaling Group."
+  type        = number
+}
+
+variable "asg_min_size" {
+  description = "The minimum size for the Auto Scaling Group."
+  type        = number
+}

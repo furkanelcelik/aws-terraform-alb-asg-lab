@@ -3,29 +3,19 @@ variable "aws_region" {
   type        = string
 }
 
-variable "project_tag" {
-  description = "The value for the 'Project' tag."
-  type        = string
-}
-
-variable "terraform_tag" {
-  description = "The value for the 'Terraform' tag."
-  type        = string
-}
-
 variable "vpc_name" {
   description = "The name of the pre-existing VPC."
   type        = string
 }
 
 variable "public_subnet_cidrs" {
-  description = "A map of public subnet CIDRs to look up."
-  type        = map(string)
+  description = "A list of public subnet CIDRs to look up."
+  type        = list(string)
 }
 
 variable "private_subnet_cidrs" {
-  description = "A map of private subnet CIDRs to look up."
-  type        = map(string)
+  description = "A list of private subnet CIDRs to look up."
+  type        = list(string)
 }
 
 variable "sg_ec2_name" {
@@ -76,4 +66,9 @@ variable "asg_name" {
 variable "lb_name" {
   description = "The name for the Application Load Balancer."
   type        = string
+}
+
+variable "common_tags" {
+  description = "A map of common tags to apply to resources."
+  type        = map(string)
 }

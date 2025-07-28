@@ -2,7 +2,7 @@ provider "aws" {
   region = var.aws_region
 }
 
-
+# --- Data Sources to find existing infrastructure ---
 data "aws_vpc" "existing" {
   filter {
     name   = "tag:Name"
@@ -10,29 +10,25 @@ data "aws_vpc" "existing" {
   }
 }
 
-
 data "aws_subnets" "public" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.existing.id]
   }
-
   filter {
     name   = "cidr-block"
-    values = values(var.public_subnet_cidrs)
+    values = var.public_subnet_cidrs
   }
 }
-
 
 data "aws_subnets" "private" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.existing.id]
   }
-
   filter {
     name   = "cidr-block"
-    values = values(var.private_subnet_cidrs)
+    values = var.private_subnet_cidrs
   }
 }
 
@@ -51,9 +47,7 @@ data "aws_security_group" "sglb" {
   vpc_id = data.aws_vpc.existing.id
 }
 
+# Use a locals block for tags as a best practice
 locals {
-  common_tags = {
-    Terraform = var.terraform_tag
-    Project   = var.project_tag
-  }
+  common_tags = var.common_tags
 }

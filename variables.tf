@@ -152,3 +152,33 @@ variable "asg_lt_version" {
   description = "The version of the launch template for the ASG to use."
   type        = string
 }
+
+variable "vpc_filter_name" {
+  description = "Filter name for VPC data source."
+  type        = string
+}
+
+variable "subnet_filter_name_vpc" {
+  description = "VPC ID filter name for subnet data source."
+  type        = string
+}
+
+variable "subnet_filter_name_cidr" {
+  description = "CIDR block filter name for subnet data source."
+  type        = string
+}
+
+variable "sg_filter_name" {
+  description = "Filter name for security group data source."
+  type        = string
+}
+
+variable "ami_owner" {
+  description = "Owner of the AMI."
+  type        = list(string)
+}
+
+variable "ami_filter_name" {
+  description = "Filter name for AMI data source."
+  type        = string
+}
